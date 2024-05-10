@@ -20,7 +20,7 @@ pip install fastapi uvicorn SQLAlchemy
 
 Start ASGI server:
 ```bash
-uvicorn main:app --reload
+fastapi run
 ```
 
 Once your server is running, you can access the Swagger UI by navigating to:
@@ -28,4 +28,12 @@ Once your server is running, you can access the Swagger UI by navigating to:
 localhost:8000/docs   # eq. http://127.0.0.1:8000/docs
 ```
 in your web browser. This `/docs` route is provided by FastAPI automatically and doesn't refer to a physical directory in your project; it's a virtual endpoint that FastAPI provides when the server is running.
+
+Run load testing 
+
+# TODO
+
+Add Prometheus and Grafana (link)[https://medium.com/devopsturkiye/locust-real-time-monitoring-with-grafana-66654bb4b32].
+
+Why does it say http://0.0.0.0:8000 when it is localhost:8000?
 
