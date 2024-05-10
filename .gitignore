@@ -1,0 +1,6 @@
+venv
+.history
+__pycache__
+*.db
+.DS_Store
+tempCodeRunnerFile.py
