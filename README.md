@@ -1,14 +1,11 @@
 # FastAPI
-VEry simple FastAPI project that communicates with a local SQL database.
+Very simple FastAPI project that communicates with a local SQL database.
 
+**FastAPI** is a modern, fast (high-performance), **web framework for building APIs** with Python 3.6+ based on standard Python type hints. It's designed to be easy to use and learn, and it's built on top of standard Python libraries and tools, including Starlette for the web parts and Pydantic for the data parts.
 
-To run your FastAPI app, you typically need to start your server via Uvicorn, an ASGI server.
+**Starlette** as a lightweight Asynchronous Server Gateway Interface (ASGI) **framework/toolkit** for building async web services in Python. It efficiently handles multiple simultaneous connections, making it suitable for modern web applications that require real-time capabilities, such as handling websockets, long polling, and other asynchronous features. 
 
-FastAPI is a modern, fast (high-performance), web framework for building APIs with Python 3.6+ based on standard Python type hints. It's designed to be easy to use and learn, and it's built on top of standard Python libraries and tools, including Starlette for the web parts and Pydantic for the data parts.
-
-ASGI (Asynchronous Server Gateway Interface) is a specification for Python web servers and applications that supports asynchronous programming. It's designed as an extension of WSGI (Web Server Gateway Interface), which is synchronous and can handle only one request at a time per process. 
-
-Starlette as a lightweight ASGI framework/toolkit for building async web services in Python. It efficiently handles multiple simultaneous connections, making it suitable for modern web applications that require real-time capabilities, such as handling websockets, long polling, and other asynchronous features. 
+To run FastAPI one needs **Uvicorn** which a **ASGI web server** that supports asynchronous programming. It's designed as an extension of WSGI (Web Server Gateway Interface), which is synchronous and can handle only one request at a time per process. 
 
 
 ## Run the app
