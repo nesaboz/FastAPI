@@ -1,0 +1,61 @@
+version: '3.11'
+
+services:
+
+  fastapi:
+    image: python:3.11-slim
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app  # Mounts the entire current directory to /app in the container, any changes to local files will be reflected in the container immediately
+    working_dir: /app
+    command: /bin/bash -c "pip install fastapi[cli] uvicorn SQLAlchemy && fastapi run main.py --port 8000"   # port is optional here as 8000 is default
+    environment:
+      - PYTHONUNBUFFERED=1  # ensure that all output from your Python application inside the container is displayed immediately
+
+  locust:
+    image: locustio/locust
+    ports:
+      - "8089:8089"
+    volumes:
+      - ./locustfile.py:/mnt/locust/locustfile.py
+    environment:
+      - LOCUST_HOST=http://fastapi:8000  # each container is accessible to other containers within the same Docker Compose network using the service names as hostnames. 
+      # in this case fastapi service
+    command: -f /mnt/locust/locustfile.py
+   
+  locust-metrics-exporter:
+    image: containersol/locust_exporter
+    ports:
+      - "9646:9646"
+    environment:
+      - LOCUST_EXPORTER_URI=http://locust:8089
+    depends_on:
+      - locust
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro  # 'ro' stands for read-only
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    depends_on:
+      - locust-metrics-exporter
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
+
+volumes:
+  grafana_data:   # volume is necesseary to persist all the data even if the container is stopped, 
+  # note that Docker Compose automatically prefixes the volume names with the name of the directory containing your compose.yml file, followed by an underscore. 
+  # This is to ensure that the volumes are unique to the project and don't conflict with other projects that might use the same volume names.
+  # So in our case the volume will be called 'fastapi_grafana_data', you can see it by running: `docker volume ls`, and `docker volume inspect fastapi_grafana_data`

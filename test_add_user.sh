@@ -1,3 +1,5 @@
+curl -X GET "http://localhost:8000/users/count"
+
 curl -X POST "http://localhost:8000/users/" \
      -H "Content-Type: application/json" \
      -d '{
@@ -10,3 +12,5 @@ curl -X POST "http://localhost:8000/users/" \
            "isActive": true,
            "password": "fdsa"
          }'
+
+

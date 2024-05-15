@@ -19,7 +19,6 @@ class WebsiteUser(HttpUser):
     To run on all available cores: locust --processes -1
     """
     
-    host = "http://localhost:8000"
     wait_time = between(0.5, 1)
 
     @task

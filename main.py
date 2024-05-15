@@ -7,9 +7,7 @@ import crud
 import models
 import schemas
 
-from database import SessionLocal, engine
-
-from crud import get_users
+from database import SessionLocal
 
 app = FastAPI()
 

@@ -1,4 +1,5 @@
 fastapi
 uvicorn
 SQLAlchemy
-httpx
+pytest
+pytest-asyncio
