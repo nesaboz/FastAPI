@@ -1,13 +1,31 @@
-# FastAPI
-Very simple FastAPI project that communicates with a local SQL database. We'll go over:
-- **FastAPI** is a modern, fast (high-performance), **web framework for building APIs** based on standard Python type hints. It's designed to be easy to use and learn, and it's built on top of standard Python libraries and tools, including Starlette for the web parts and Pydantic for the data parts.
-- **Starlette** is a lightweight Asynchronous Server Gateway Interface (ASGI) **framework/toolkit** for building async web services in Python. It efficiently handles multiple simultaneous connections, making it suitable for modern web applications that require real-time capabilities, such as handling websockets, long polling, and other asynchronous features.
-- **Uvicorn** is used to run FastAPI as an ASGI **web server**. Btw Web Server Gateway Interface (WSGI) server, which is synchronous, can handle only one request at a time per process. 
-- **Locust** Locust is an performance/load testing tool for HTTP and other protocols. Its developer friendly approach lets you define your tests in regular Python code.
+# APIs
+
+I made a simple FastAPI project to test local SQLAlchemy database APIs using Locust. Performance metrics are stored long-term via Prometheus time-series database and monitored via Grafana. The whole thing was shockingly easy to write and set up (partially thanks to Docker too), kudos to smart engineers everywhere for making solutions like these work seamlessly. 
+
+Screenshots of four webapps running: FastAPI, Locust, Prometheus, and Grafana.
+
+| ![Image 1](assets/fastapi.png) | ![Image 2](assets/locust.png) |
+|-------------------------------|-------------------------------|
+| ![Image 3](assets/prometheus.png) | ![Image 4](assets/grafana.png) |
+
+<!-- 
+![fastapi](assets/fastapi.png)
+![locust](assets/locust.png)
+![prometheus](assets/prometheus.png)
+![grafana](assets/grafana.png) -->
+
+
+# Glossary
+
+- **[FastAPI](https://fastapi.tiangolo.com)** is a modern, fast (high-performance), **web framework for building APIs** based on standard Python type hints. It's designed to be easy to use and learn, and it's built on top of standard Python libraries and tools, including Starlette for the web parts and Pydantic for the data parts.
+- **[Locust](https://locust.io)** is an performance/load testing tool for HTTP and other protocols. Its developer friendly approach lets you define your tests in regular Python code.
+- **[Prometheus](https://prometheus.io)** is a monitoring system with a focus on reliability, designed for capturing time-series data like metrics. It supports powerful queries, visualization, precise alerting, and has a strong ecosystem for service discovery and external storage integrations.
+- **[Grafana](https://grafana.com)** is an analytics and interactive visualization web application that provides charts, graphs, and alerts for the web when connected to supported data sources, like Prometheus. It's widely used for monitoring metrics and data visualization across various environments, including cloud infrastructure and applications.
+
 
 ## Description 
 
-We have created bunch of SQLAlchemy database APIs we would like to test. Prerequisites:
+We first start with local installation and later we'll containerize:
 ```bash
 pip install -r requirements.txt
 ```
@@ -37,8 +55,13 @@ locust --processes 8
 http://localhost:8089
 ```
 
-## Add Prometheus and Grafana (link)[https://medium.com/devopsturkiye/locust-real-time-monitoring-with-grafana-66654bb4b32].
+## Scaling with Prometheus and Grafana 
 
-Since the number of services/libraries is getting quite big now we'll switch to docker-compose to manage these. We'll now add Prometheus (time-series DB) and Grafana (visualization) services.
+Inspired by (Yusuf Tayman's blog)[https://medium.com/devopsturkiye/locust-real-time-monitoring-with-grafana-66654bb4b32].
 
+In order to preserve any metrics long term we:
+- add Prometheus as a time-series DB
+- Grafana for visualization
+- scale using docker-compose
 
+Take home lesson is how simple integration was.

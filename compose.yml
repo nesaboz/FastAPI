@@ -22,7 +22,7 @@ services:
     environment:
       - LOCUST_HOST=http://fastapi:8000  # each container is accessible to other containers within the same Docker Compose network using the service names as hostnames. 
       # in this case fastapi service
-    command: -f /mnt/locust/locustfile.py
+    command: -f /mnt/locust/locustfile.py --processes -1
    
   locust-metrics-exporter:
     image: containersol/locust_exporter
