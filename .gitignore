@@ -1,4 +1,6 @@
 venv
+# .vscode
+# locust_exporter
 .history
 __pycache__
 *.db
