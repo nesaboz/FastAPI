@@ -12,7 +12,7 @@ Screenshots of four webapps (FastAPI, Locust, Prometheus, and Grafana) running o
 ## Description 
 
 Let me first describe the tools I used:
-- **[FastAPI](https://fastapi.tiangolo.com)** is a modern, fast (high-performance), **web framework for building APIs** based on standard Python type hints. It's built on top of standard Python libraries and tools, including Starlette for the web parts and Pydantic for the data parts.
+- **[FastAPI](https://fastapi.tiangolo.com)** is a modern, fast (high-performance), web framework for building APIs based on standard Python type hints. It's built on top of standard Python libraries and tools, including Starlette for the web parts and Pydantic for the data parts.
 - **[Locust](https://locust.io)** is a performance/load testing tool for HTTP and other protocols. Great UI, all tests in Python. 
 - **[Prometheus](https://prometheus.io)** is a monitoring system with a focus on reliability, designed for capturing time-series data like metrics. It supports queries, visualization, precise alerting, service discovery, and external storage integrations.
 - **[Grafana](https://grafana.com)** is an analytics and interactive visualization web application that provides charts, graphs, and alerts for the web when connected to supported data sources, like Prometheus. It's widely used for monitoring metrics and data visualization across various environments, including cloud infrastructure and applications.
