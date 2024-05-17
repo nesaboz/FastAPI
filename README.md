@@ -1,8 +1,8 @@
-# Database APIs: testing and monitoring
+# APIs testing and monitoring
 
 I made a simple FastAPI project to test local SQLAlchemy Database APIs using Locust library. Performance metrics are stored long-term via Prometheus time-series database and monitored via Grafana. The whole thing was very easy to write and set up in a few hours (with big thanks to Docker compose too for this), and the setup is ready for production too.
 
-Screenshots of four webapps (FastAPI, Locust, Prometheus, and Grafana) running on four ports (by default 8000, 8089, 9090, 3000 respectively). Hidden in the background is [`locust-metrics-exporter`](https://github.com/ContainerSolutions/locust_exporter) (port: 9646).
+Screenshots of four webapps: FastAPI, Locust, Prometheus, and Grafana:
 
 | ![Image 1](assets/fastapi.png) | ![Image 2](assets/locust.png) |
 |-------------------------------|-------------------------------|
@@ -11,11 +11,12 @@ Screenshots of four webapps (FastAPI, Locust, Prometheus, and Grafana) running o
 
 ## Description 
 
-Let me first describe the tools I used:
-- **[FastAPI](https://fastapi.tiangolo.com)** is a modern, fast (high-performance), web framework for building APIs based on standard Python type hints. It's built on top of standard Python libraries and tools, including Starlette for the web parts and Pydantic for the data parts.
-- **[Locust](https://locust.io)** is a performance/load testing tool for HTTP and other protocols. Great UI, all tests in Python. 
-- **[Prometheus](https://prometheus.io)** is a monitoring system with a focus on reliability, designed for capturing time-series data like metrics. It supports queries, visualization, precise alerting, service discovery, and external storage integrations.
-- **[Grafana](https://grafana.com)** is an analytics and interactive visualization web application that provides charts, graphs, and alerts for the web when connected to supported data sources, like Prometheus. It's widely used for monitoring metrics and data visualization across various environments, including cloud infrastructure and applications.
+Let me first describe the tools I used:  
+- **[FastAPI](https://fastapi.tiangolo.com)** is a modern, fast (high-performance), web framework for building APIs based on standard Python type hints. It's built on top of standard Python libraries and tools, including Starlette for the web parts and Pydantic for the data parts.    
+- **[Locust](https://locust.io)** is a performance/load testing tool for HTTP and other protocols. Great UI, all tests in Python.  
+- **[Prometheus](https://prometheus.io)** is a monitoring system with a focus on reliability, designed for capturing time-series data like metrics. It supports queries, visualization, precise alerting, service discovery, and external storage integrations.   
+- **[Grafana](https://grafana.com)** is an analytics and interactive visualization web application that provides charts, graphs, and alerts for the web when connected to supported data sources, like Prometheus. It's widely used for monitoring metrics and data visualization across various environments, including cloud infrastructure and applications.  
+- **[Locust metrics exporter](https://github.com/ContainerSolutions/locust_exporter)** does exactly that: it preps locust metrics to be ingested by Prometheus.
 
 ## Run the FastAPI app
 
@@ -47,7 +48,7 @@ Use flag  `--processes X` to define how many CPUs to run on, or `-1` for all.
 
 Then check:
 ```url
-localhost:8089
+http://localhost:8089
 ```
 
 ![locust](assets/locust.png)
@@ -55,7 +56,7 @@ localhost:8089
 ## Long-term tracking with Prometheus and Grafana*
 
 While Locust has it's own tracking, all data is lost once the locust server stops (data can be manually exported). In order to preserve any metrics long-term we:
-- add locust_exporter that preps metrics to be ingested by other sources
+- add Locust-metics-exporter
 - add Prometheus as a time-series DB
 - add Grafana for visualization
 - scale using docker-compose
@@ -80,13 +81,13 @@ Notable points in `compose.yml`:
 Prometheus and Grafana will then store data as long as it's needed, their UIs are excellent to set up all sorts of alerts and tracking.
 
 ```url
-localhost:9090
+http://localhost:9090
 ```
 
 ![prometheus](assets/prometheus.png)
 
 ```url
-localhost:3000
+http://localhost:3000
 ```
 ![grafana](assets/grafana.png)
 
@@ -94,4 +95,4 @@ localhost:3000
 
 ## Conclusion
 
-I wrote and ran simple FastAPI app with database (SQLAlchemy), stress test APIs (Locust) and monitor performance (Prometheus/Grafana), all containerized using docker-compose. While all webapps ran on a local machine, scaling by splitting into microservices, or moving to the cloud host, would be straightforward (hosting can be done on EC2s with relevant ports exposed).
+I wrote and ran simple FastAPI app with database (SQLAlchemy), stress test APIs (Locust) and monitor performance (Prometheus/Grafana), all containerized using docker-compose. While all WebApps ran on a local machine, scaling by splitting into microservices, or moving to the cloud host, would be straightforward (hosting can be done on EC2s with relevant ports exposed).
