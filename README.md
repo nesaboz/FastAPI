@@ -27,7 +27,8 @@ pip install -r requirements.txt
 
 Start ASGI server:
 ```bash
-fastapi run
+fastapi run main.py  # this runs: `uvicorn main:app --reload`
+fastapi dev main.py  # to run in dev mode
 ```
 
 Once your server is running, you can access the Swagger UI by navigating to:
